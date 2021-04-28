@@ -1,8 +1,9 @@
 import java.util.*;
 
-// Unlike the Comparable interface, you implement the Comparator interface in a separate class.
+// Unlike the Comparable interface, you implement the Comparator interface in a separate class. 
+// (The Comparator itself imposes ordering, not the objects being compared)
 // You can pass this class as a parameter into Collections.sort() or Arrays.sort().
-// Comparators also let you sort by multiple attributes. 
+// Comparators also let you sort by multiple attributes via chaining. 
 // You just need multiple classes that implement Comparator.
 // You can also reverse the ordering you get from Comparator with Collections.reverseOrder().
 public class ComparatorExample {
@@ -20,6 +21,7 @@ public class ComparatorExample {
 		System.out.println(Arrays.toString(eArray));
 		Arrays.sort(eArray,
 				new AgeSorter().thenComparing(new FirstNameSorter()));
+		// You could also sort a specified range in the array according to the Comparator interface passed in.
 		System.out.println(Arrays.toString(eArray));
 
 		// Collections.sort()
