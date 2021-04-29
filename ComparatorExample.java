@@ -1,9 +1,8 @@
 import java.util.*;
 
-// Unlike the Comparable interface, you implement the Comparator interface in a separate class. 
-// (The Comparator itself imposes ordering, not the objects being compared)
+// Unlike the Comparable interface, you implement the Comparator interface in a separate class.
 // You can pass this class as a parameter into Collections.sort() or Arrays.sort().
-// Comparators also let you sort by multiple attributes via chaining. 
+// Comparators also let you sort by multiple attributes. 
 // You just need multiple classes that implement Comparator.
 // You can also reverse the ordering you get from Comparator with Collections.reverseOrder().
 public class ComparatorExample {
@@ -21,7 +20,6 @@ public class ComparatorExample {
 		System.out.println(Arrays.toString(eArray));
 		Arrays.sort(eArray,
 				new AgeSorter().thenComparing(new FirstNameSorter()));
-		// You could also sort a specified range in the array according to the Comparator interface passed in.
 		System.out.println(Arrays.toString(eArray));
 
 		// Collections.sort()
@@ -36,10 +34,36 @@ public class ComparatorExample {
 
 		// You can also instantiate a sorting class while declaring the variable
 		// to be of type Comparator.
-		// The class that implements Comparator is at a lower level than Comparator.
+		// The class that implements Comparator is at a lower level than
+		// Comparator.
 		Comparator<Employee> comp = new LastNameSorter();
 		Collections.sort(list, Collections.reverseOrder(comp));
 		System.out.println(list);
+
+		// There is no easy way to reverse sort an array of primitives
+		int[] intArr = { 1, 2, 3, 4, 5 };
+
+		// Arrays.sort(intArr, Collections.reverseOrder());
+		// This line doesn't work because Collections.reverseOrder() returns a
+		// Comparator that imposes a natural reverse ordering on objects that
+		// implement the Comparable interface, or it takes a Comparator and returns
+		// another Comparator that imposes the reverse of the ordering specified
+		// by the input. For this reason, Collections.reverseOrder() does not
+		// work with primitives (since they do not implement Comparable). To reverse an array of 
+		// primitives, you need to first wrap each element of the array.
+
+		Integer[] newIntArr = new Integer[intArr.length];
+		int tracker = 0;
+		for (int i = 0; i < intArr.length; i++) {
+			Integer integer = new Integer(intArr[i]);
+			newIntArr[tracker] = integer;
+			tracker++;
+		}
+		Arrays.sort(newIntArr, Collections.reverseOrder());
+		for (int i = 0; i < intArr.length; i++) {
+			intArr[i] = newIntArr[i];
+		}
+		System.out.println(Arrays.toString(intArr));
 	}
 
 	static class Employee {
